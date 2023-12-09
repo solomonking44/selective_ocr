@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% block title %}
+Selective OCR
+{% endblock %}
+
+{% block body %}
+
+<h1 class="text-center">Documents</h1>
+<p class="text-muted text-center">Upload new Documents</p>
+
+<div class="row">
+    <div class="col-md-2 d-flex justify-content-center">
+        <div class="ms-5 mt-5">
+            <p class="pl-3" id="welcome">
+                Welcome
+            </p>
+            <p class="pl-5 text-uppercase" id="name">
+                {% if name %}
+                    {{ name }}
+                {% endif %}
+            </p>
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <div class="row">
+            {% for document in documents %}
+            <div class="col-md-3 col-lg-3">
+                <div class="image d-flex justify-content-center">
+                    <img title="{{ document.name.split('.', 1)[0] }}"
+                        src="{{ url_for('views.get_document_image', document_id=document.id) }}"
+                        class="d-flex justify-content-center img-thumbnail" alt="Document Preview"
+                        style="width:200px;height:200px;">
+                </div>
+                <div class="card-body d-flex justify-content-center">
+                    <p class="card-text text-center text-truncate text-uppercase"
+                        style="max-height:30px;max-width:250px;"><strong class="text-truncate">{{
+                            document.name.split('.', 1)[0] }}</strong></p>
+                </div>
+                <div class="buttons">
+                    <ul class="list-inline d-flex justify-content-center">
+                        <li class="list-inline-item">
+                            <a href="{{ url_for('views.delete_document', document_id=document.id) }}"
+                                class="mt-1 btn btn-sm btn-outline-danger close" title="Delete Document">
+                                <span aria-hidden="true">Delete</span>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="{{ url_for('views.ocr', document_id=document.id) }}" target="_blank"
+                                class="mt-1 btn btn-sm btn-outline-success close" title="Get Text from Document">
+                                <span aria-hidden="true">Get Text</span>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="{{ url_for('views.select_model', document_id=document.id) }}" target="_blank"
+                                class="mt-1 btn btn-sm btn-outline-primary close" title="Selective OCR for Document">
+                                <span aria-hidden="true">S-OCR</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+    <div class="col-md-2">
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-2">
+
+    </div>
+    <div class="col-md-8">
+        <form class="mt-5" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <input type="file" name="file" id="file" class="form-control" required>
+            </div>
+            <button type="submit" class="mt-3 mb-4 form-control btn btn-info text-light">
+                Upload
+            </button>
+        </form>
+    </div>
+    <div class="col-md-2">
+
+    </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+<!-- title -->
+{% block title %}
+Sign Up
+{% endblock %}
+
+<!-- body -->
+{% block body %}
+
+<div class="row">
+    <div class="col-md-4">
+
+    </div>
+    <div class="col-md-4">
+        <h3 class="mt-4 text-center">Register</h3>
+        <p class="text-muted text-center">Already have an account? <a href="/login">Login</a></p>
+        <form method="POST" autocomplete="off">
+            <div class="form-group mb-3">
+                <label for="firstname">First Name</label>
+                <input name="firstname" type="text" class="form-control border-success" id="firstname" placeholder="Enter First Name"
+                    required>
+            </div>
+            <div class="form-group mb-3">
+                <label for="lastname">First Name</label>
+                <input name="lastname" type="text" class="form-control border-success" id="lastname" placeholder="Enter Last Name"
+                    required>
+            </div>
+            <div class="form-group mb-3">
+                <label for="age">Age</label>
+                <input name="age" type="text" class="form-control border-success" id="age" placeholder="Enter Age" required>
+            </div>
+            <div class="form-group mb-2">
+                <label for="email">Email address</label>
+                <input name="email" type="email" class="form-control border-success" id="email" aria-describedby="emailHelp"
+                    placeholder="Enter email" required>
+                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                    else.</small>
+            </div>
+            <div class="form-group mb-3">
+                <label for="password">Password</label>
+                <input name="password" type="password" class="form-control border-success" id="password" placeholder="Password"
+                    required>
+            </div>
+            <div class="form-group mb-3">
+                <label for="confirmpassword">Confirm Password</label>
+                <input name="confirmpassword" type="password" class="form-control border-success" id="confirmpassword"
+                    placeholder="Confirm Password" required>
+            </div>
+            <button type="submit" class="mt-3 form-control text-light btn btn-success">Register</button>
+            <button type="reset" class="mt-2 form-control btn btn-outline-danger">Reset</button>
+        </form>
+
+    </div>
+    <div class="col-md-4">
+
+    </div>
+</div>
+
+{% endblock %}

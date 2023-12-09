@@ -1,0 +1,329 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Selective OCR
+{% endblock %}
+
+{% block body %}
+
+<!--Main Navigation-->
+<header>
+
+
+
+  <!-- Background image -->
+  <!-- xs and sm only -->
+  <div id="intro" class="bg-image shadow-2-strong">
+    <div class="row d-md-none d-lg-none d-xl-none ">
+      <div class=" col-xs-12 col-sm-12 d-flex justify-content-center">
+      </div>
+      <div class=" col-md-6 col-xs-12 col-sm-12 mb-5">
+        <div class="row">
+          <div class="col-md-6 col-xs-12 col-sm-12 d-flex justify-content-center">
+            <a href="">
+              <img class="mt-5 shadow p-3 mb-5 bg-body-tertiary rounded" id="image_to_text"
+                src="{{url_for('static', filename='images/2.png')}}" alt="Selective OCR">
+            </a>
+          </div>
+          <div class="mb-5 col-md-6 col-xs-12 col-sm-12 d-flex justify-content-center">
+            <a href="">
+              <img class="shadow p-3 mb-5 bg-body-tertiary rounded" id="pdf_to_text"
+                src="{{url_for('static', filename='images/4.png')}}" alt="Selective OCR">
+            </a>
+          </div>
+        </div>
+
+        <a class="d-none d-sm-none" href="/home">
+          <img class="mt-5" src="{{url_for('static', filename='images/3.png')}}" alt="Go Premium">
+        </a>
+
+      </div>
+    </div>
+    <!-- xs and sm only -->
+
+
+    <!-- md and lg only -->
+    <div class="row d-flex justify-content-center ">
+      <div class="col-md-6 mt-5 d-none d-lg-inline d-md-inline">
+        <img class="ms-5 pt-5" src="{{url_for('static', filename='images/1.png')}}" alt="Selective OCR"
+          style="min-height:auto;min-width:auto;">
+      </div>
+      <div class="col-md-6 mt-5 d-none d-lg-inline d-md-inline">
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-6 d-flex justify-content-center">
+            <a href="">
+              <img class=" shadow p-2 mb-5 bg-body-tertiary rounded " id="image_to_text_lg"
+                src="{{url_for('static', filename='images/2.png')}}" alt="Selective OCR">
+            </a>
+          </div>
+          <div class=" col-md-6 d-none d-lg-inline d-md-inline">
+            <a href="">
+              <img class=" shadow p-2 mb-5 bg-body-tertiary rounded" id="pdf_to_text_lg"
+                src="{{url_for('static', filename='images/4.png')}}" alt="Selective OCR">
+            </a>
+          </div>
+        </div>
+
+        <div class="row d-none d-sm-none d-xs-none d-lg-inline d-md-inline">
+          <div class="col-md-12 d-flex justify-content-center">
+            <a class="" href="/home">
+              <img class="" src="{{url_for('static', filename='images/3.png')}}" alt="Go Premium"
+                style="max-height: 20rem; max-width:28rem;">
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- md and lg only -->
+
+  </div>
+  <!-- Background image -->
+
+  <!-- success modal -->
+
+  <div class="modal fade" id="resultModal" tabindex="-1" aria-labelledby="resultModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Success!</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>
+            <a id="zohoLink" class="link-success" href="#" target="_blank">
+              Edit in Zoho Office <i class="fa-solid fa-arrow-up-right-from-square fa-sm" style="color: #563913;"></i>
+              <!-- <span class="badge bg-success">Quick</span> -->
+            </a>
+            <i class="fa-solid fa-circle-question fa-2xs p-1" style="color: #563913;"></i>
+          </p>
+          <p>
+            <a href="#" class="link-warning" id="downloadFile">
+              Download unformatted Text
+            </a>
+            <i class="fa-solid fa-circle-question fa-2xs p-1" style="color: #563913;"></i>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- failed modal -->
+
+
+  <!-- success modal -->
+
+  <div class="modal fade" id="resultModalFail" tabindex="-1" aria-labelledby="resultModalFailLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Error!</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p id="errorMessage"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- failed modal -->
+
+
+  <!-- form -->
+  <form method="POST" id="file_form" action="" enctype="multipart/form-data">
+    <input type="file" name="file" id="file" hidden>
+  </form>
+  <!-- form -->
+
+</header>
+<!--Main Navigation-->
+
+<!--Main layout-->
+<main class="mt-5 ">
+  <div class="mt-5 container">
+    <!--Section: Content-->
+    <section>
+      <div class="row mt-5">
+        <div class="col-md-6 gx-5 mb-4">
+          <div class="bg-image hover-overlay ripple shadow-2-strong rounded" data-mdb-ripple-color="light">
+            <img src="{{url_for('static', filename='images/5.jpg')}}" class="img-fluid rounded-3"  style="height:23rem;"/>
+            
+            <a href="#!">
+              <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+            </a>
+          </div>
+        </div>
+
+        <div class="col-md-6 gx-5 mb-4">
+          <h4><strong>Optical Recognition</strong></h4>
+          <p class="text-muted" >
+            OCR is a technology that extracts text from images. It analyzes visual patterns, converts them into
+            machine-readable text, and finds applications in digitizing documents and automating data entry.
+          </p>
+          <p><strong>Is basic OCR enough?</strong></p>
+          <p class="text-muted" >
+            Basic OCRs fetch text in simple documents, but as structures grow, meaningful information becomes difficult 
+            to obtain. An advanced, intelligent system is needed to fetch only required fields for end users.
+          </p>
+        </div>
+      </div>
+    </section>
+    <!--Section: Content-->
+
+    <hr class="my-5" />
+
+    <!--Section: Content-->
+    <section class="text-center">
+      <h4 class="mb-5"><strong>Steps</strong></h4>
+
+      <div class="row">
+        <div class="col-lg-4 col-md-12 mb-4">
+          <div class="card">
+            <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+              <img src="{{url_for('static', filename='images/9.jpg')}}" class="img-fluid" />
+              <a href="#!">
+                <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+              </a>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title" id="welcome">1</h5>
+              <p class="card-text fw-bold" >
+                Scan a document 
+              </p>
+              <!-- <a href="#!" class="btn btn-primary">Button</a> -->
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="card">
+            <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+              <img src="{{url_for('static', filename='images/6.png')}}" class="img-fluid" />
+              <a href="#!">
+                <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+              </a>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title" id="welcome">2</h5>
+              <p class="card-text fw-bold" >
+                Vist our site. Click Image to Text or PDF to Text
+              </p>
+              <!-- <a href="#!" class="btn btn-primary">Button</a> -->
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="card">
+            <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+              <img src="{{url_for('static', filename='images/8.png')}}" class="img-fluid" />
+              <a href="#!">
+                <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+              </a>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title" id="welcome">3</h5>
+              <p class="card-text fw-bold" id="labelFont">
+                Edit or Download results
+              </p>
+              <!-- <a href="#!" class="btn btn-primary">Button</a> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--Section: Content-->
+
+    <hr class="my-5" />
+
+    <!--Section: Content-->
+    <section class="mb-5">
+      <h4 class="mb-5 text-center"><strong>Feedback</strong></h4>
+
+      <div class="row d-flex justify-content-center">
+        <div class="col-md-6">
+          <form>
+            <!-- 2 column grid layout with text inputs for the first and last names -->
+            <div class="row mb-4">
+              <div class="col">
+                <div class="form-outline">
+                  <input type="text" id="form3Example1" class="form-control" />
+                  <label class="form-label" for="form3Example1" >First name</label>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-outline">
+                  <input type="text" id="form3Example2" class="form-control" />
+                  <label class="form-label" for="form3Example2" >Last name</label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Email input -->
+            <div class="form-outline mb-4">
+              <input type="email" id="form3Example3" class="form-control" />
+              <label class="form-label" for="form3Example3" >Email address</label>
+            </div>
+
+            <!-- Comment TextArea -->
+            <div class="mb-3">
+              <textarea class="form-control" name="comment" id="comment" rows="3"></textarea>
+              <label for="exampleFormControlTextarea1" class="form-label" >Comment</label>
+            </div>
+
+            <!-- Checkbox -->
+            <div class="form-check d-flex justify-content-center mb-4">
+              <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3" checked />
+              <label class="form-check-label" for="form2Example3" >
+                Subscribe to our newsletter
+              </label>
+            </div>
+
+            <!-- Submit button -->
+            <button type="submit" class="btn btn-primary btn">
+              Sign up
+            </button>
+
+            <!-- Register buttons -->
+            <div class="text-center" >
+              <p>or sign up with:</p>
+              <button type="button" class="btn btn-primary btn-floating mx-1">
+                <i class="fab fa-facebook-f"></i>
+              </button>
+
+              <button type="button" class="btn btn-primary btn-floating mx-1">
+                <i class="fab fa-google"></i>
+              </button>
+
+              <button type="button" class="btn btn-primary btn-floating mx-1">
+                <i class="fab fa-twitter"></i>
+              </button>
+
+              <button type="button" class="btn btn-primary btn-floating mx-1">
+                <i class="fab fa-github"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+    <!--Section: Content-->
+  </div>
+</main>
+<!--Main layout-->
+
+<!--Footer-->
+<footer class="bg-dark sticky-bottom text-lg-start ">
+
+  <!-- Copyright -->
+  <div class="text-center p-2 bg-dark text-light ">
+    <span>© 2023 Copyright:</span>
+    <a class="text-light" href="https://ndejjeuniversity.ac.ug">ndejjeuniversity.ac.ug</a>
+  </div>
+  <!-- Copyright -->
+</footer>
+<!--Footer-->
+
+
+
+{% endblock %}

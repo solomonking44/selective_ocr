@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
+  <link rel="shortcut icon" href="{{url_for('static', filename='images/favicon.png')}}" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="{{url_for('static', filename='css/custom.css')}}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@600&family=Caveat&family=Mr+Dafoe&display=swap" rel="stylesheet">
+  <title>{% block title %} {% endblock %}</title>
+</head>
+
+<style>
+  body {
+    background-image: url("{{url_for('static', filename='images/bg.png')}}");
+  }
+</style>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light d-lg-block" style="z-index: 2000;">
+    <div class="container-fluid">
+
+      <!-- Navbar brand -->
+      <a class="navbar-brand nav-link" href="/">
+        <strong>Selective OCR</strong>
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarExample01"
+        aria-controls="navbarExample01" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarExample01">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          {% if user.is_authenticated %}
+          <li class="nav-item active">
+            <a class="nav-link" aria-current="page" href="/home">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/logout" rel="nofollow">Logout</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="/login" id="unique">Login</a>
+          </li>
+          {% endif %}
+          <li class="nav-item">
+            <a class="nav-link" href="mailto:robinahalicenamuwaya@gmail.com?Subject=Feedback%20for%20SOCR" id="unique">Feedback</a>
+          </li>
+        </ul>
+
+        <ul class="navbar-nav d-flex flex-row">
+
+          <!-- Icons -->
+          <li class="nav-item me-3 me-lg-0">
+            <a class="nav-link" href="#" rel="nofollow" target="_blank">
+              <i class="fab fa-youtube"></i>
+            </a>
+          </li>
+          <li class="nav-item me-3 me-lg-0">
+            <a class="nav-link" href="#" rel="nofollow" target="_blank">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+          </li>
+          <li class="nav-item me-3 me-lg-0">
+            <a class="nav-link" href="#" rel="nofollow" target="_blank">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </li>
+          <li class="nav-item me-3 me-lg-0">
+            <a class="nav-link" href="#" rel="nofollow" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- Navbar -->
+
+  <!-- loader -->
+  <div id="sheet" class="d-flex d-none justify-content-center">
+    <img id="spinner" role="status" src="{{url_for('static', filename='images/loader.svg')}}" alt="Loading...">
+  </div>
+
+  <!-- loader -->
+
+  <!-- body content -->
+
+  <!-- container-fluid -->
+  <div class="container-fluid">
+    {% block body %}{% endblock %}
+  </div>
+  <!-- container-fluid -->
+
+  <!-- body content -->
+
+  <!-- toasts -->
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+  <div class="toast-container position-fixed bottom-0 end-0">
+    {% for category, message in messages %}
+    {% if category == 'error' %}
+    <div class="toast bg-danger text-light border-0" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <img class="favicon" src="{{url_for('static', filename='images/favicon.png')}}" class="rounded me-2" alt="Logo">
+        <strong class="me-auto">Selective OCR</strong>
+        <small>now</small>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+        {{message}}
+      </div>
+    </div>
+    {% else %}
+    <div class="toast bg-success text-light border-0" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <img class="favicon" src="{{url_for('static', filename='images/favicon.png')}}" class="rounded me-2" alt="Logo">
+        <strong class="me-auto">Selective OCR</strong>
+        <small>now</small>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+        {{message}}
+      </div>
+    </div>
+    {% endif %}
+  </div>
+  {% endfor %}
+  {% endif %}
+  {% endwith %}
+  <!-- toasts -->
+
+
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+    integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.6/dist/umd/popper.min.js"
+    integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/js/bootstrap.min.js"
+    integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+    crossorigin="anonymous"></script>
+  <script src="{{url_for('static', filename='js/bootstrap.bundle.js')}}"></script>
+  <script src="{{url_for('static', filename='js/custom.js')}}"></script>
+
+
+</body>
+
+
+
+</html>

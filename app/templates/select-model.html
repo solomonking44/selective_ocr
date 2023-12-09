@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Select Model
+{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-md-4">
+
+    </div>
+    <div class="col-md-4">
+        <h3 class="mt-3 text-center">
+            Select Model
+        </h3>
+        <div id="selectModel">
+            <p class="mt-3 text-muted text-center">Select a model to relevant to your requirement</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        
+    </div>
+</div>
+
+<form action="{{ url_for('views.socr', document_id=document_id) }}" method="GET">
+    <div class="row mt-5 mb-4">
+        <div class="col-md-4">
+
+        </div>
+        <div class="col-md-4">
+            <div class="row">
+                <div class="col-md-6 col-xs-12 d-flex justify-content-center">
+                    <div class="card text-center " style="width: 18rem;">
+                        <div class="card-body">
+                          <h5 class="card-title">Passport</h5>
+                          <p class="card-text">Pre-trained passport model</p>
+                          <input type="radio" name="model" value="passports" id="model" required>
+                        </div>
+                      </div>
+                </div>
+                <div class="col-md-6 col-xs-12 d-flex justify-content-center">
+                    <div class="card text-center" style="width: 18rem;">
+                        <div class="card-body">
+                          <h5 class="card-title text-muted">Forms</h5>
+                          <p class="card-text text-muted">Pre-trained form model</p>
+                          <input type="radio" name="model" value="forms" id="model" disabled>
+                        </div>
+                      </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+
+        </div>
+        <div class="col-md-4 d-flex justify-content-center">
+            <button class="btn btn-sm btn-success" type="submit">
+                Select
+            </button>
+        </div>
+        <div class="col-md-4">
+            
+        </div>
+    </div>
+    
+</form>
+
+{% endblock %}
